@@ -4,7 +4,7 @@ const Axios = axios.create({
     baseURL: 'http://localhost:3000',
     timeout: 6000,
   });
-export default (url,data={},type='get') => {
+const main = (url,data={},type='get') => {
     return new Promise((resolve, reject) => {
         let promise
         //执行器函数
@@ -30,3 +30,4 @@ export default (url,data={},type='get') => {
 
     })
 }
+export default main
