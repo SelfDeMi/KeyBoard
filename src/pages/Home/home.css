@@ -1,0 +1,22 @@
+#components-layout-demo-responsive .logo {
+    height: 32px;
+    margin: 16px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .site-layout-sub-header-background {
+    background: #fff;
+  }
+  
+  .site-layout-background {
+    background: #fff;
+  }
+  .header-box{
+    /* margin: 1rem 2rem; */
+    /* padding: 0.5rem; */
+    height: 3rem;
+    width: 100%;
+    /* background-color: black; */
+  }
+
+  
