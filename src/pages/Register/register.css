@@ -1,0 +1,9 @@
+body,html{
+    margin: 0;
+    padding: 0;
+}
+.register-box{
+    width: 22rem;
+    height: 15rem;
+    margin: 10rem auto;
+}
