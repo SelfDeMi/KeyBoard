@@ -14,10 +14,12 @@ export default function Login() {
     reqFindCookie(getLocalStorage('KB_USERCOOKIE')).then((res) => {
       // console.log(res);
       if (res.data === '该用户已存在') {
-        message.success('自动登陆中,即将跳转')
-      setTimeout(() => {
-        navigate('/',{replace:true})
-      }, 3000);
+        // message.success('自动登陆中,即将跳转',1,() => {
+         
+        // })
+        setTimeout(() => {
+           navigate('/',{replace:true})
+        }, 3000);
       }
     })
 

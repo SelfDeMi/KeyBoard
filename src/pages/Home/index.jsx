@@ -6,7 +6,10 @@ import {
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu, Input, Dropdown, message, Space, Button } from 'antd';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import './home.css'
+import { removeLocalStorage } from '../../utils/localStorage'
+
 const { Header, Content, Footer, Sider } = Layout;
 const { Search } = Input
 function getItem(label, key, icon, children) {
@@ -24,38 +27,12 @@ let showUseInfo = () => {
   console.log("bb");
 }
 
-const onClick = ({ key }) => {
-  // 点击了下拉菜单，即跳转
-  message.info(`Click on item ${key}`);
-};
-
-
-const menu = (
-  <Menu
-    onClick={onClick}
-    items={[
-      {
-        label: '用户详情',
-        key: '1',
-      },
-      {
-        label: '用户设置',
-        key: '2',
-      },
-      {
-        label: '退出登录',
-        key: '3',
-      },
-    ]}
-  />
-);
-
 
 //导航栏部署
 const items = [
   getItem('学习空间', 'a', <PieChartOutlined />),
   getItem('抖音小视界', 'b', <DesktopOutlined />),
-  getItem('消息', 'c',<FormOutlined /> , [
+  getItem('消息', 'c', <FormOutlined />, [
     getItem('新西兰老母猪', 'c-1'),
     getItem('利比里亚黑毛猪', 'c-2'),
     getItem('印第安斑鸠', 'c-3'),
@@ -83,6 +60,7 @@ const items = [
 
 // console.log(myIItems);
 const Home = () => {
+  let navigate = useNavigate()
   //被选中的item 然后遍历它
   let updateItems = (key) => {
     items.map((i) => {
@@ -95,17 +73,48 @@ const Home = () => {
           }
           return []
         })
-      }else{
+      } else {
         if (i.key === key) {
           // return console.log(key);
           return setMyIItems([i])
         }
       }
       return []
-       
+
     })
   }
-let [pmyIItems,setMyIItems] = useState([])
+
+  const onClick = ({ key }) => {
+    // 点击了下拉菜单，即跳转
+    console.log(key);
+    if (key > 2) {
+      message.success('退出成功')
+      removeLocalStorage('KB_USERCOOKIE')
+      navigate('/login')
+    }
+   
+  };
+  const menu = (
+    <Menu
+      onClick={onClick}
+      items={[
+        {
+          label: '用户详情',
+          key: '1',
+        },
+        {
+          label: '用户设置',
+          key: '2',
+        },
+        {
+          label: '退出登录',
+          key: '3',
+        },
+      ]}
+    />
+  );
+
+  let [pmyIItems, setMyIItems] = useState([])
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout
@@ -115,10 +124,14 @@ let [pmyIItems,setMyIItems] = useState([])
     >
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <div className="logo" />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items}
-        onClick={(e) => {
-          updateItems(e.key)
-        }}
+        <Menu theme="dark" defaultSelectedKeys={['a']} mode="inline" items={items}
+          // onSelect={(a) => {
+          //   // 被选中后触发
+          //   setSLESCTKRY(a.key)
+          // }}
+          onClick={(e) => {
+            updateItems(e.key)
+          }}
         />
       </Sider>
 
@@ -184,8 +197,9 @@ let [pmyIItems,setMyIItems] = useState([])
             {
               pmyIItems.map(i => {
                 return <Breadcrumb.Item key={i.key} >
-                 <Button style={{ borderRadius: 5 }}  >{i.label}</Button>
-                  </Breadcrumb.Item>
+                  <Button style={{ borderRadius: 5 }} disabled={true} >
+                    {i.label}</Button>
+                </Breadcrumb.Item>
               })
             }
 
