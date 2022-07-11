@@ -4,11 +4,17 @@ import {
   DesktopOutlined, FormOutlined,
   DownOutlined, VideoCameraAddOutlined
 } from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, Input, Dropdown, message, Space, Button } from 'antd';
+import { lazy } from 'react';
+import { Breadcrumb, Layout, Menu, Input, Dropdown, message, Space, Button, Typography } from 'antd';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,useRoutes} from 'react-router-dom'
 import './home.css'
 import { removeLocalStorage } from '../../utils/localStorage'
+const NoteIndex = lazy(() => import('../Note'))
+
+
+
+
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Search } = Input
@@ -53,7 +59,8 @@ const items = [
     getItem('拜登跪安', 'f-4'),
   ]),
   getItem('笔记', 'g', <FormOutlined />,
-    [getItem('JS笔记', 'g-1'),
+    [getItem('使用介绍', 'g-0')
+      , getItem('JS笔记', 'g-1'),
     getItem('golang笔记', 'g-2')
     ]),
 ];
@@ -92,7 +99,7 @@ const Home = () => {
       removeLocalStorage('KB_USERCOOKIE')
       navigate('/login')
     }
-   
+
   };
   const menu = (
     <Menu
@@ -131,6 +138,20 @@ const Home = () => {
           // }}
           onClick={(e) => {
             updateItems(e.key)
+            switch (e.key) {
+              case 'g-0':
+                navigate('/note/')
+                break;
+              case 'g-1':
+                navigate('/note/normalnote')
+                break;
+              case 'g-2':
+                navigate('/note/normalnote')
+                break;
+              default:
+                navigate('/note/normalnote')
+                break;
+            }
           }}
         />
       </Sider>
@@ -138,6 +159,9 @@ const Home = () => {
 
 
       <Layout className="site-layout">
+
+
+        {/* 头部 */}
         <Header
           className="site-layout-background"
           style={{
@@ -183,7 +207,7 @@ const Home = () => {
         </Header>
 
 
-
+        {/* 主体内容 */}
         <Content
           style={{
             margin: '0 16px',
@@ -211,12 +235,16 @@ const Home = () => {
               minHeight: 550,
             }}
           >
-            主界面
+            {/* 主界面 */}
+            <NoteIndex></NoteIndex>
           </div>
+
+
+
         </Content>
 
 
-
+        {/* 尾部？ */}
         <Footer
           style={{
             textAlign: 'center',

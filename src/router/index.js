@@ -6,9 +6,16 @@ const Register = lazy(() =>  import ('../pages/Register'))
 const a = [
 
     {
-        path: "/",
+        path: "/*",
         element:<Home></Home> ,
-        // children: [ ]
+        // children: [
+        //     {
+        //         path:'note',
+        //         element:() => {
+        //             lazy(import ('../pages/Note/introductNote'))
+        //         }
+        //     }
+        // ]
     },
     {
         path: "/login",
