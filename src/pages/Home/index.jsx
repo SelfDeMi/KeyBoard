@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { useNavigate,useRoutes} from 'react-router-dom'
 import './home.css'
 import { removeLocalStorage } from '../../utils/localStorage'
+
 const NoteIndex = lazy(() => import('../Note'))
 
 
@@ -67,6 +68,8 @@ const items = [
 
 // console.log(myIItems);
 const Home = () => {
+
+  console.log('apple add aaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
   let navigate = useNavigate()
   //被选中的item 然后遍历它
   let updateItems = (key) => {
